@@ -1,46 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int t;
     cin >> t;
-    while (t--)
-    {
+
+    while (t--) {
         int n;
         cin >> n;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++)
-        {
-            cin >> arr[i];
-        }
-        vector<int> pre(n, 0);
-        int curr = 0;
-        for (int i = 0; i < n; i++)
-        {
-            curr += arr[i];
-            pre[i] = curr;
-        }
-        int maxi = 0;
-        int total = pre[n - 1];
 
-        for (int i = 0; i < n; i++)
-        {
-            int t1 = 0;
-            for (int j = i; j < n; j++)
-            {
-                int old = pre[j] - (i > 0 ? pre[i - 1] : 0);
-                int cs = total - old + (j - i + 1) * (i + j + 2);
-                t1 = max(t1, cs);
-            }
-            maxi = max(maxi, t1);
+        long long prefixSum = 0;   // sum of elements so far
+        long long totalSum = 0;    // sum of whole array
+
+        long long minValue = 0;    // minimum F(k) seen so far
+        long long bestGain = 0;    // best gain we can achieve
+
+        for (int i = 1; i <= n; i++) {
+            int x;
+            cin >> x;
+
+            prefixSum += x;
+            totalSum += x;
+
+            // This is F(r)
+            long long currentValue = 1LL * i * (i + 1) - prefixSum;
+
+            // Update best gain
+            bestGain = max(bestGain, currentValue - minValue);
+
+            // Update minimum F(k) so far
+            minValue = min(minValue, currentValue);
         }
 
-        maxi = max(maxi, total);
-
-        cout << maxi << endl;
+        // Final answer
+        cout << totalSum + bestGain << "\n";
     }
+
+    return 0;
 }
