@@ -7,43 +7,23 @@ int main() {
 
     int t;
     cin >> t;
-
     while (t--) {
         int n;
         cin >> n;
-
-        vector<int> arr(n);
+        vector<long long> a(n);
         for (int i = 0; i < n; i++) {
-            cin >> arr[i];
-        }
-        sort(arr.begin(), arr.end());
-
-        int smallest = arr[0];
-        int secondSmallest = arr[1];
-        int limit = 2 * smallest;
-        int maxAllowed = smallest;
-        auto it = upper_bound(arr.begin(), arr.end(), limit);
-        if (it != arr.begin()) {
-            maxAllowed = *(it - 1);
-        }
-        int answer = smallest;
-
-        if (secondSmallest > limit) {
-
-            int candidate = secondSmallest - smallest;
-
-            while (candidate > smallest) {
-                if (candidate > maxAllowed &&
-                    !binary_search(arr.begin(), arr.end(), candidate)) {
-
-                    answer = candidate;
-                    break;
-                }
-                candidate--;
-            }
+            cin >> a[i];
         }
 
-        cout << answer << '\n';
+        sort(a.begin(), a.end());
+
+        long long a1 = a[0];
+        long long a2 = a[1];
+
+        // Maximum k that works
+        long long ans = max(a1, a2 - a1);
+
+        cout << ans << '\n';
     }
 
     return 0;
