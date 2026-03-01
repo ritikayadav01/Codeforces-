@@ -8,7 +8,7 @@ int main() {
         int n;
         cin >> n;
 
-        vector<int> arr(n);  // ✅ FIX #1
+        vector<int> arr(n);  
         for (int i = 0; i < n; i++) cin >> arr[i];
 
         vector<pair<int,int>> v;
@@ -27,7 +27,7 @@ int main() {
         }
 
         if (st != -1 && en != -1) {
-            if (st > en) swap(st, en);  // ✅ FIX #2
+            if (st > en) swap(st, en);  
             reverse(arr.begin() + st, arr.begin() + en + 1);
         }
 
